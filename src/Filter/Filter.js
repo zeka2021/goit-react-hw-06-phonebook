@@ -1,9 +1,10 @@
-// import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { filterContact } from '../redux/actions';
 import s from './Filter.module.css';
 
-function Filter({ filter, onChange }) {
- 
+function Filter() {
+ const filter = useSelector(state => state.contacts.filter);
+  const dispatch = useDispatch();
 
     return (
       <div className={s.filterForm}>
@@ -15,7 +16,7 @@ function Filter({ filter, onChange }) {
               type="text"
               name="filter"
               value={filter}
-              onChange={onChange}
+              onChange={e => dispatch(filterContact(e.currentTarget.value))}
             />
           </label>
         </div>
@@ -24,8 +25,5 @@ function Filter({ filter, onChange }) {
   }
 
 
-Filter.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  filter: PropTypes.string.isRequired,
-};
+
 export default Filter;
